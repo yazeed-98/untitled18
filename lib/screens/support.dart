@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../clases/Color.dart';
 import 'loginScreen.dart';
-
-
-
 
 class Support extends StatefulWidget {
   @override
@@ -13,9 +13,11 @@ class Support extends StatefulWidget {
 class _SupportState extends State<Support> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade100,
+        backgroundColor: appBarColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -26,59 +28,97 @@ class _SupportState extends State<Support> {
                 fontSize: 26,
               ),
             ),
-            SizedBox(width: 8), // مسافة بين النص والأيقونة
+            SizedBox(width: 8),
             Icon(Icons.support_agent, color: Colors.red, size: 30),
           ],
         ),
-        centerTitle: true, // لجعل العنوان في الوسط
+        centerTitle: true,
       ),
-      backgroundColor: Colors.orange.shade100,
+      backgroundColor: ScafeldColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // لتوسيط المحتوى
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildElevatedButton(
-              context: context,
-              icon: Icons.support_agent,
-              label: 'Contact Pharmacist on duty',
-              onPressed: () {},
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // معلومات المستخدم
+              if (user != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    "You are logged in as: ${user.email}",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ),
 
-            SizedBox(height: 20),
-
-            _buildElevatedButton(
-              context: context,
-              icon: Icons.support_agent,
-              label: 'Contact to application support',
-              onPressed: () {},
-            ),
-
-            SizedBox(height: 30),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue.shade100,
-              ),
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Loginscreen()),
-                );
-              },
-              child: Text(
-                'Log out',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
+              // وصف بسيط
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  "How can we help you today?",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-          ],
+
+              // زر التواصل مع الصيدلي
+              _buildElevatedButton(
+                context: context,
+                icon: Icons.medical_services,
+
+                label: 'Contact Pharmacist on Duty',
+
+                onPressed: () async {
+                  final Uri url = Uri.parse("tel:+962790000000"); // رقم وهمي
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
+                  }
+                },
+              ),
+
+              SizedBox(height: 20),
+
+              // زر التواصل مع دعم التطبيق
+              _buildElevatedButton(
+
+                context: context,
+                icon: Icons.email,
+                label: 'Contact App Support',
+                onPressed: () async {
+                  final Uri url = Uri.parse("mailto:support@pillpoint.com");
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
+                  }
+                },
+              ),
+
+              SizedBox(height: 30),
+
+              // زر تسجيل الخروج
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: elivitedldColor,
+                ),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Text(
+                  'Log out',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
+  // تصميم زر موحد
   Widget _buildElevatedButton({
     required BuildContext context,
     required IconData icon,
@@ -86,11 +126,11 @@ class _SupportState extends State<Support> {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      width: 280, // تكبير الزر ليكون مناسبًا أكثر
+      width: 280,
       height: 60,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue.shade100,
+          backgroundColor: elivitedldColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
@@ -105,7 +145,7 @@ class _SupportState extends State<Support> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.red,
-                fontSize: 16, // تكبير حجم الخط ليكون واضحًا
+                fontSize: 16,
               ),
             ),
           ],

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "743076480199",
+    "project_id": "pill-f38d0",
+    "storage_bucket": "pill-f38d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743076480199:android:6daaa622ac2b48f3616ae2",
+        "android_client_info": {
+          "package_name": "com.example.untitled18"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBLqX9r0L7U10huP0MKt9g0nKEwmXRQLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

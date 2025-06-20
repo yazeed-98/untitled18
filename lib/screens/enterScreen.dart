@@ -41,7 +41,7 @@ margin: EdgeInsets.only(bottom: 40,left: 130),
                       backgroundColor: Color(0xcd5f916e)
                     ),
                     onPressed: (){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>Loginscreen() ,));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>LoginScreen() ,));
 
                     }, child: Text('lets go',
                   style: TextStyle(color:Color(0xcd135b5d)),),)),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../clases/Color.dart';
 import '../clases/formFaild.dart';
+import 'location.dart';
 
 
 class PharmacyListScreen extends StatefulWidget {
@@ -30,16 +31,17 @@ class _PharmacyListScreenState extends State<PharmacyListScreen> {
           padding: const EdgeInsets.only(left: 120,
               top: 20),
           child: PreferredSize(preferredSize: Size(0, 20), child: Text('Pharmacy',
+
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20
+                fontSize: 27
             ),)),
         ),
 
 
 
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+          preferredSize: Size.fromHeight(70),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Formfaild(
@@ -47,7 +49,7 @@ class _PharmacyListScreenState extends State<PharmacyListScreen> {
               hint: 'Enter medicine name',
               preIcon: Icons.search,
               border: Colors.white30,
-              borderRades: 10,
+              borderRades: 20,
             ),
           ),
         ),
@@ -55,7 +57,13 @@ class _PharmacyListScreenState extends State<PharmacyListScreen> {
 
       ),
         
-
+floatingActionButton: FloatingActionButton(onPressed: (){
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LocationPage(),));
+},child: Icon(Icons.location_on_outlined,
+color: Colors.red,
+  size: 35,
+),
+backgroundColor: appBarColor,),
 
         body:
         ListView.builder(
